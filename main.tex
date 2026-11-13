@@ -1,0 +1,829 @@
+\documentclass[11pt]{amsart}
+\renewcommand{\bfdefault}{m}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage[capitalise,noabbrev,nameinlink]{cleveref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{hypothesis}{Hypothesis}{Hypotheses}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\loc}{\mathrm{loc}}
+\newcommand{\SMR}{\mathcal{SMR}}
+\newcommand{\HS}{\mathcal L_2(U,E)}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\norm}[2][]{\lVert #2\rVert_{#1}}
+\newcommand{\Lip}{\mathrm{Lip}}
+\numberwithin{equation}{section}
+\title[Time regularization at $p=2$]{Time regularization at $p=2$ for critical stochastic evolution equations in Hilbert spaces}
+\author{Yitzchak Shmalo}
+\address{The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{}
+\subjclass[2020]{60H15, 35B65, 35R60}
+\keywords{Stochastic evolution equation, critical space, stochastic maximal regularity, instantaneous regularization}
+\begin{document}
+\begin{abstract}
+We prove instantaneous time regularization for critical semilinear stochastic
+evolution equations on a Hilbert couple at the initial exponent $p=2$.
+We assume the endpoint local well-posedness hypotheses and unweighted linear
+stochastic maximal regularity for an unbounded sequence of larger exponents.
+The maximal energy solution then has all the local mixed Sobolev and H\"older
+regularity asserted in Theorem~5.7 of Agresti and Veraar's survey, on its
+original spatial scale and throughout its open lifetime. This treats the case
+posed as Problem~6 in that survey. The proof combines critical smallness on
+trace-space balls, continuation of cutoff equations, and deterministic
+restart times; the additional growth bound in the survey's theorem is unnecessary.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+We consider the autonomous semilinear stochastic evolution equation
+\begin{equation}\label{eq:equation}
+ du+Au\,dt=F(u)\,dt+(Bu+G(u))\,dW,\qquad u(0)=u_0,
+\end{equation}
+on a densely embedded Hilbert couple $X_1\hookrightarrow X_0$. Here $A$ and
+$B$ are linear operators, $F$ and $G$ are nonlinear maps, and $W$ is a
+cylindrical Brownian motion. Their precise assumptions appear in
+\cref{sec:setting}. The endpoint trace space is $E=[X_0,X_1]_{1/2}$.
+Local well-posedness at time exponent $2$ gives a maximal solution $(u,\sigma)$
+with continuous $E$-valued paths and locally square-integrable $X_1$-valued
+paths before its lifetime $\sigma$.
+
+Agresti and Veraar's survey \cite{Survey}, Theorem~5.7, pp.~59--60, gives
+instantaneous regularization from unweighted initial exponents $p>2$, under
+higher-exponent linear stochastic maximal regularity and the additional
+growth condition (5.21). Problem~6 on p.~130 asks for the critical Hilbert
+case at $p=2$, where equality is allowed in condition (6.1) on p.~65.
+Unless another version is specified, page references to \cite{Survey}
+refer to the published version in NoDEA.
+The obstruction to a direct use of the weighted argument is the identity
+$(1+\alpha)/r=1/2$, where $r>2$ is the larger time exponent and
+$\alpha$ is the exponent of the time weight: it forces $\alpha=r/2-1$, outside the
+admissible stochastic range $\alpha<r/2-1$.
+
+\Cref{thm:main} gives the regularization in this case. It retains the
+higher-exponent linear hypothesis, requiring only unweighted estimates for
+an unbounded sequence of exponents, and dispenses with (5.21).
+Its conclusion is local on $(0,\sigma)$ and makes no assertion at time zero,
+at the lifetime, or about unlocalized moments. In particular it is not a
+consequence of endpoint variational coercivity alone.
+
+The proof uses the critical-smallness mechanism of \cite{Survey}, (5.5) and
+the discussion following it, pp.~51--52. There a positive power of a small
+trace-space difference permits absorption of the top spatial norm.
+Here we use the same mechanism around a fixed domain vector. The radius
+can be chosen independently of that vector's domain norm. We combine this
+estimate with global continuation on a fixed horizon of higher-exponent
+cutoff equations and with countably many deterministic restarts of the
+energy solution. Continuity in the endpoint trace space then reaches every
+strictly positive time before $\sigma$.
+
+The local theory in critical spaces is developed in Agresti--Veraar
+\cite{AVI}, Theorems~4.7--4.8 (arXiv version, pp.~30--31 and p.~31,
+respectively). Part~II \cite{AVII}, Proposition~6.8, pp.~76--80, provides
+regularization on a second spatial couple; at $p=2$ its parameter identity
+forces a positive spatial shift. The fixed-horizon cutoff continuation
+argument below follows the small-linear-growth method of \cite{AVII},
+Theorem~4.15, pp.~39--41; we prove the required version directly using
+\cite{Survey}, Theorem~5.1(1). Portal--Veraar
+\cite{PV} develops linear stochastic maximal regularity for rough
+time-dependent problems; its Theorem~5.3, pp.~572--573, includes the
+$p=q=2$, $\alpha=0$ option in its coefficient setting.
+In the classical variational framework of Krylov--Rozovskii \cite{KR},
+as formulated in Liu--R\"ockner \cite{LR}, Theorem~4.1 (arXiv version,
+p.~17), hemicontinuity, monotonicity, coercivity and growth give the
+energy class for square-integrable initial data when the coercivity
+exponent is $2$. The exponent $p$ in \cite{LR}, Theorem~1.1, controls
+moments; the time-integrability exponent of the variational norm there
+is the coercivity exponent.
+The critical variational theory of \cite{CV}, Theorem~3.3, pp.~968--969,
+gives local energy solutions under critical local Lipschitz assumptions;
+Lemma~4.1, p.~972, supplies the endpoint linear estimate.
+
+\section{Setting and hypotheses}\label{sec:setting}
+
+Let $(\Omega,\mathcal F,(\mathcal F_t)_{t\ge0},\Prob)$ be a complete
+filtered probability space satisfying the usual conditions. Let $U$ be a
+real separable Hilbert space and let $W$ be an adapted $U$-cylindrical
+Brownian motion. All measurability of vector-valued random variables is
+strong measurability. The notation $L^0_{\mathcal F_s}(\Omega;Y)$ denotes
+the $\mathcal F_s$-measurable $Y$-valued random variables, without a moment
+condition; $\E$ denotes expectation. We write $\mathcal L(Y,Z)$ for the
+bounded linear maps between Banach spaces $Y$ and $Z$.
+
+Let $X_0$ be a Hilbert space and let $X_1\hookrightarrow X_0$ be dense and
+continuous. We use complex interpolation and real interpolation, respectively,
+in the notation
+\[
+ X_\delta=[X_0,X_1]_\delta,\qquad
+ X_{\delta,r}=(X_0,X_1)_{\delta,r}
+ \quad(0<\delta<1,\ 1\le r\le\infty).
+\]
+For real spaces, complex interpolation is understood by complexification.
+We set $X_{0}=X_0$, $X_{1}=X_1$ at the ends of the scale and
+$E=X_{1/2}=X_{1/2,2}$, with equivalent Hilbert norms understood.
+The space $\HS$ consists of Hilbert--Schmidt operators from $U$ to $E$;
+it is the same as $\gamma(U,E)$ in the survey's notation.
+For a Banach space $Y$ and an interval $I$, $L^r(I;Y)$ is the Bochner
+space, $H^{\theta,r}(I;Y)$ is the Bessel potential space, and
+$C^\delta(I;Y)$ is the H\"older space of order $0<\delta<1$.
+In particular $H^{0,r}=L^r$. A subscript $\loc$ on a random open interval
+means membership on every compact subinterval, path by path.
+
+\begin{hypothesis}\label{hyp:nonlinear}
+The operator $A\in\mathcal L(X_1,X_0)$ has domain $D(A)=X_1$ with
+equivalent graph norm, and $\lambda_0+A$ is sectorial for some
+$\lambda_0\ge0$. Also $B\in\mathcal L(X_1,\HS)$.
+The autonomous maps $F:X_1\to X_0$ and $G:X_1\to\HS$ satisfy the
+following condition. There are $m\in\N$, $\beta_j\in(1/2,1)$ and
+$\rho_j\ge0$, $1\le j\le m$, such that, for every integer $n\ge1$,
+there is $L_n<\infty$ for which
+\begin{align}\label{eq:lipschitz}
+ &\norm[X_0]{F(x)-F(z)}+\norm[\HS]{G(x)-G(z)}\\
+ &\quad\le L_n\sum_{j=1}^m
+ \bigl(1+\norm[X_{\beta_j,1}]{x}^{\rho_j}
+          +\norm[X_{\beta_j,1}]{z}^{\rho_j}\bigr)
+       \norm[X_{\beta_j,1}]{x-z}\notag
+\end{align}
+whenever $x,z\in X_1$ and $\norm[E]{x},\norm[E]{z}\le n$. Moreover,
+\begin{equation}\label{eq:critical}
+ (2\beta_j-1)(\rho_j+1)\le1\qquad(1\le j\le m).
+\end{equation}
+Powers with exponent zero in \eqref{eq:lipschitz} are interpreted as $1$.
+\end{hypothesis}
+
+These are Assumption~4.1 of \cite{Survey}, pp.~38--39, at
+$(p,\kappa)=(2,0)$, with the Hilbert specialization. Condition
+\eqref{eq:critical} is its (6.1), p.~65. Indeed its nonsingular condition
+(4.4a) becomes
+\[
+ \rho_j(\beta_j-1/2)+\beta_j\le1
+ \quad\Longleftrightarrow\quad
+ 2\beta_j(\rho_j+1)\le\rho_j+2
+ \quad\Longleftrightarrow\quad\eqref{eq:critical}.
+\]
+We allow equality for any of the indices. An index with equality is called
+critical; if $\rho_j=0$, it is strictly subcritical since $\beta_j<1$.
+Here $p$ denotes the time-integrability exponent, and $\kappa$ the exponent
+of the weight $(t-s)^\kappa$ at a starting time $s$; we use only $\kappa=0$.
+
+We recall the linear hypothesis, including its quantifiers. For $q\ge2$,
+write $(A,B)\in\SMR_{q,0}$ if, for every $T<\infty$, every deterministic
+$s\in[0,T]$, every stopping time $\tau$ with $s\le\tau\le T$, and
+progressively measurable $f,g$ in the indicated $L^q$ spaces, the equation
+\begin{equation}\label{eq:linear}
+ dv+Av\,dt=f\,dt+(Bv+g)\,dW,\qquad v(s)=0,
+\end{equation}
+has a unique strong solution and
+\begin{equation}\label{eq:mr}
+ \norm[L^q(\Omega\times(s,\tau);X_1)]{v}
+ \le C_{q,T}\bigl(
+ \norm[L^q(\Omega\times(s,\tau);X_0)]{f}
+ +\norm[L^q(\Omega\times(s,\tau);\HS)]{g}\bigr).
+\end{equation}
+Here and below a norm on a stochastic interval integrates the indicator
+of that interval against $d\Prob\,dt$. The constant is uniform in $s$
+and $\tau$. A strong solution satisfies the integrated equation in $X_0$.
+The notation $\SMR^\bullet_{q,0}$ additionally requires, on deterministic
+intervals, the corresponding estimates in
+$L^q(\Omega;H^{\theta,q}(X_{1-\theta}))$ for every $0<\theta<1/2$ if
+$q>2$, and in $L^2(\Omega;C(E))$ if $q=2$.
+These are Definitions~3.7--3.8 of \cite{Survey}, pp.~27--28.
+
+\begin{hypothesis}\label{hyp:linear}
+The pair $(A,B)$ belongs to $\SMR^\bullet_{2,0}$. There is a sequence
+$q_\ell\to\infty$, with $2<q_\ell<\infty$, such that
+$(A,B)\in\SMR_{q_\ell,0}$ for every $\ell\in\N$.
+\end{hypothesis}
+
+The higher-exponent part of this hypothesis is supplied by the linear
+assumptions of \cite{Survey}, Theorem~5.7, which assumes
+$\SMR^\bullet_{r,\alpha}$ for every $r>2$ and $0\le\alpha<r/2-1$.
+\Cref{lem:linear} below explains why the ordinary, non-bullet version
+suffices here.
+
+By \cite{Survey}, Theorem~4.7, pp.~42--43, the endpoint assumptions give,
+for every $u_0\in L^0_{\mathcal F_0}(\Omega;E)$, a unique maximal local
+solution $(u,\sigma)$ of \eqref{eq:equation}, with $\sigma>0$ almost surely and
+\begin{equation}\label{eq:energy}
+ u\in C([0,\sigma);E)\cap L^2_\loc([0,\sigma);X_1)\quad\hbox{almost surely}.
+\end{equation}
+More precisely, there are increasing stopping times $\sigma_n\uparrow\sigma$
+on which the equation is a strong solution with the stated integrability.
+The nonlinear forcings are locally in $L^2(X_0)$ and $L^2(\HS)$.
+Uniqueness holds on common lifetimes and localizes to events in the
+initial sigma-field, as in part~(2) of that theorem.
+
+\begin{theorem}\label{thm:main}
+Under \cref{hyp:nonlinear,hyp:linear}, let $(u,\sigma)$ be this maximal
+endpoint solution. On a single event of probability one,
+\begin{equation}\label{eq:conclusion}
+ u\in H^{\theta,r}_\loc((0,\sigma);X_{1-\theta})
+ \quad\text{for all }0\le\theta<1/2,\quad 2\le r<\infty,
+\end{equation}
+and
+\begin{equation}\label{eq:holder}
+ u\in C^{\theta-\varepsilon}_\loc((0,\sigma);X_{1-\theta})
+ \quad\text{for all }0<\varepsilon<\theta<1/2.
+\end{equation}
+No additional growth bound on $X_{1/2,\infty}$-balls is required.
+\end{theorem}
+
+In particular this gives the conclusion of \cite{Survey}, Theorem~5.7,
+at $p=2$, including the critical case of Problem~6, with its remaining
+linear assumptions retained. The spaces $X_{\beta_j,1}$, the trace $E$,
+and $X_{1/2,\infty}$ have distinct interpolation indices.
+
+\section{Small relative growth on trace balls}
+
+\begin{lemma}\label{lem:small}
+Fix an integer $N\ge1$ and $\eta>0$. There exists $d=d(N,\eta)\in(0,1]$
+such that for every $y\in X_1$ with $\norm[E]{y}\le N$ there is
+$C_y<\infty$ satisfying
+\begin{equation}\label{eq:small}
+ \norm[X_0]{F(y+w)-F(y)}+\norm[\HS]{G(y+w)-G(y)}
+ \le\eta\norm[X_1]{w}+C_y
+\end{equation}
+for all $w\in X_1$ with $\norm[E]{w}\le2d$.
+The radius $d$ is independent of $\norm[X_1]{y}$.
+\end{lemma}
+
+\begin{proof}
+Set $a_j=2\beta_j-1\in(0,1)$. Real reiteration gives
+$(E,X_1)_{a_j,1}=X_{\beta_j,1}$ with equivalent norms. To see the
+pointwise bound explicitly, the $K$-functional of $(E,X_1)$ satisfies
+\[
+ K(t,w;E,X_1)\le\min\{\norm[E]{w},t\norm[X_1]{w}\}.
+\]
+Integrating $t^{-a_j}K(t,w)\,dt/t$, split at
+$t=\norm[E]{w}/\norm[X_1]{w}$, gives
+\begin{equation}\label{eq:interpolation}
+ \norm[X_{\beta_j,1}]{w}
+ \le c_j\norm[E]{w}^{1-a_j}\norm[X_1]{w}^{a_j}.
+\end{equation}
+The integral contributes $a_j^{-1}+(1-a_j)^{-1}$, in addition to the
+reiteration constant. The zero vector is immediate. This is the Hilbert
+endpoint instance of the interpolation used in \cite{Survey}, Lemma~4.3,
+pp.~40--41.
+
+For $d\le1$, both $y+w$ and $y$ have $E$-norm at most $N+2$.
+The inequality $(s+t)^\rho\le\max\{1,2^{\rho-1}\}(s^\rho+t^\rho)$ for
+$\rho>0$, and the separate constant case $\rho=0$, reduce
+\eqref{eq:lipschitz} to
+\begin{equation}\label{eq:difference}
+ C_N\sum_{j=1}^m\left[
+ (1+\norm[X_{\beta_j,1}]{y}^{\rho_j})
+       \norm[X_{\beta_j,1}]{w}
+ +\norm[X_{\beta_j,1}]{w}^{\rho_j+1}\right].
+\end{equation}
+Here $C_N$ depends on the fixed parameters and $L_{N+2}$, but not on $y$.
+Write $Z=\norm[X_1]{w}$. The last summand is bounded by
+\begin{equation}\label{eq:powers}
+ D_j\norm[E]{w}^{(1-a_j)(\rho_j+1)}Z^{b_j},
+ \qquad b_j=a_j(\rho_j+1)\le1,\quad D_j=C_Nc_j^{\rho_j+1}.
+\end{equation}
+At a critical index,
+\begin{equation}\label{eq:equality}
+ (2\beta_j-1)(\rho_j+1)=1,
+ \qquad(1-a_j)(\rho_j+1)=\rho_j>0.
+\end{equation}
+The positivity follows from $a_j<1$. Thus this contribution is at most
+$D_j(2d)^{\rho_j}Z$.
+If $J_c=\{j:b_j=1\}$ is nonempty, choose
+\begin{equation}\label{eq:radius}
+ d=\min\left\{1,\ \frac12\min_{j\in J_c}
+           \left(\frac{\eta}{2mD_j}\right)^{1/\rho_j}\right\};
+\end{equation}
+zero $D_j$ impose no restriction. If there are no nonzero critical
+contributions, take $d=1$. The sum of critical contributions is at most
+$\eta Z/2$.
+
+All remaining powers of $Z$ in \eqref{eq:difference} are strictly below
+one: the initial summands have power $a_j$, and the noncritical last
+summands have power $b_j$. For $0<b<1$ and $h\ge0$,
+\[
+ hZ^b\le\delta Z+
+ (1-b)b^{b/(1-b)}h^{1/(1-b)}\delta^{-b/(1-b)}.
+\]
+Use this with $\delta=\eta/(4m)$ for each of at most $2m$ remaining
+terms and with $\norm[E]{w}\le2$. Their linear coefficients sum to at
+most $\eta/2$. Their constants are finite and may depend on $y$.
+This proves \eqref{eq:small} and the asserted independence of the radius.
+\end{proof}
+
+\section{Linear estimates and cutoff equations}
+
+For $q>2$ write $E_q=X_{1-1/q,q}$, the unweighted trace space at
+exponent $q$. For progressive forcing pairs define
+\[
+ \mathfrak n_{q,s,T}(f,g)=
+ \bigl\|\norm[X_0]{f}+\norm[\HS]{g}\bigr\|_{L^q(\Omega\times(s,T))}.
+\]
+
+\begin{lemma}\label{lem:linear}
+Suppose $(A,B)\in\SMR_{q,0}$ for some $q>2$. Then
+$(A,B)\in\SMR^\bullet_{q,0}$. Moreover, for each $T<\infty$ there
+is $M_{q,T}<\infty$, uniform in deterministic $0\le s<T$, such that
+the linear equation with initial value
+$\xi\in L^q_{\mathcal F_s}(\Omega;E_q)$ satisfies
+\begin{equation}\label{eq:initialestimate}
+ \norm[L^q(\Omega\times(s,T);X_1)]{v}
+ \le M_{q,T}\left(\norm[L^q(\Omega;E_q)]{\xi}
+                         +\mathfrak n_{q,s,T}(f,g)\right).
+\end{equation}
+It has paths in $C([s,T];E_q)$ and, locally inside $(s,T)$, in
+$H^{\theta,q}(X_{1-\theta})$ for every $0\le\theta<1/2$.
+\end{lemma}
+
+\begin{proof}
+A dense Hilbert couple admits a positive invertible self-adjoint reference
+operator $A_*$ on $X_0$ with $D(A_*)=X_1$ and equivalent domain norm.
+For example, after normalizing the embedding $i:X_1\to X_0$, one can
+take $A_*=(ii^*)^{-1/2}$, with domain the range of $i$.
+The reference pair $(A_*,0)$ has the bullet estimates by
+\cite{Survey}, Theorem~3.13, pp.~31--33; its proof uses this same
+reference-operator construction, related to \cite{PV}, Theorem~3.9.
+
+Let $v$ have zero initial value. Rewrite its equation as
+\[
+ dv+A_*v\,dt=\bigl[f+(A_*-A)v\bigr]dt+(Bv+g)\,dW.
+\]
+The two forcing norms on the right are bounded by
+\[
+ \norm[L^q(X_0)]{f}+\norm[L^q(\HS)]{g}
+ +D\norm[L^q(X_1)]{v},\qquad
+ D=\norm[\mathcal L(X_1,X_0)]{A_*-A}
+    +\norm[\mathcal L(X_1,\HS)]{B}.
+\]
+Here the time-probability domains of the norms are $(s,T)\times\Omega$.
+Estimate \eqref{eq:mr} controls the last norm. The reference bullet
+estimate therefore gives all the required fractional-time estimates for
+$v$, uniformly in deterministic interval endpoints within $[0,T]$.
+Taking $1/q<\theta<1/2$, the mixed trace embedding of
+\cite{Survey}, Proposition~2.1, p.~18, gives continuity into $E_q$.
+This proves the bullet assertion without any assumption that $A$ itself
+is self-adjoint.
+
+To add $\xi$, let $e(t)=\exp(-(t-s)A_*)\xi$. Deterministic trace theory
+gives a constant $R_q$ such that
+\[
+ \norm[L^q(\Omega;W^{1,q}(s,T;X_0))]{e}
+ +\norm[L^q(\Omega\times(s,T);X_1)]{e}
+ \le R_q\norm[L^q(\Omega;E_q)]{\xi}.
+\]
+One can choose $R_q$ uniformly in $s,T$ by using the exponentially
+stable reference semigroup on the half-line. The process $e$ is adapted.
+For $z=v-e$ the zero-initial-data forcings are
+\begin{equation}\label{eq:corrections}
+ f+(A_*-A)e,\qquad g+Be.
+\end{equation}
+In particular both the drift correction and the noise correction enter.
+If $C_0=C_{q,T}$ is the constant in \eqref{eq:mr}, the estimate for
+$e+z$ gives \eqref{eq:initialestimate}, for example with
+\begin{equation}\label{eq:constant}
+ M_{q,T}=1+R_q(1+C_0D)+2C_0.
+\end{equation}
+We used $\norm[L^q]{f}+\norm[L^q]{g}
+\le2\mathfrak n_{q,s,T}(f,g)$; a product forcing norm cannot replace
+that sum with constant one. The bullet estimates for $z$, the deterministic
+mixed regularity of $e$, and the trace embedding give the stated path
+properties. This initial-data argument is also the one in
+\cite{AVI}, Proposition~3.10, arXiv pp.~22--23, and
+\cite{AVII}, Proposition~3.9, published pp.~21--23.
+\end{proof}
+
+Fix an admissible $q=q_\ell$ large enough that
+\begin{equation}\label{eq:qchoice}
+ a=1-1/q>\max_{1\le j\le m}\beta_j.
+\end{equation}
+The strict interpolation gaps imply
+\begin{equation}\label{eq:embeddings}
+ E_q\hookrightarrow X_{\beta_j,1},\qquad E_q\hookrightarrow E.
+\end{equation}
+On every $E_q$-ball, \eqref{eq:lipschitz} thus bounds the differences
+by a constant times the $E_q$-distance, and comparison with $0$ bounds
+the values. Since $X_1$ is dense in $E_q$, the maps $F,G$ extend
+uniquely to maps Lipschitz on every bounded $E_q$-ball.
+
+Let $\chi:[0,\infty)\to[0,1]$ be Lipschitz, equal to $1$ on $[0,1]$
+and to $0$ on $[2,\infty)$. Given $y\in X_1$ and a radius $d$ from
+\cref{lem:small}, define
+\begin{align}\label{eq:cutoff}
+ F_y(x)&=F(y)+\chi(\norm[E]{x-y}/d)\,[F(x)-F(y)],\notag\\
+ G_y(x)&=G(y)+\chi(\norm[E]{x-y}/d)\,[G(x)-G(y)].
+\end{align}
+These maps agree with $F,G$ when $\norm[E]{x-y}\le d$. On $X_1$,
+\cref{lem:small} implies the global growth bound
+\begin{equation}\label{eq:cutgrowth}
+ \norm[X_0]{F_y(x)}+\norm[\HS]{G_y(x)}
+ \le\eta\norm[X_1]{x}+K_y,
+\end{equation}
+where one can take
+$K_y=\norm[X_0]{F(y)}+\norm[\HS]{G(y)}+C_y+\eta\norm[X_1]{y}$.
+When the cutoff vanishes, the same bound follows just from its constant
+values. The extensions in \eqref{eq:cutoff} are locally Lipschitz on
+$E_q$: the cutoff factor is Lipschitz there by \eqref{eq:embeddings},
+and all other factors are bounded and Lipschitz on bounded balls.
+
+\begin{proposition}\label{prop:cutoff}
+Fix $N\in\N$, $T<\infty$, and $q$ satisfying \eqref{eq:qchoice}.
+Choose $\eta>0$ with $M_{q,T}\eta\le1/2$, and set $d=d(N,\eta)$.
+For every $y\in X_1$ with $\norm[E]{y}\le N$, every deterministic
+$s<T$, and every $\xi\in L^q_{\mathcal F_s}(\Omega;E_q)$, the cutoff
+equation
+\begin{equation}\label{eq:cutoffeq}
+ dv+Av\,dt=F_y(v)\,dt+(Bv+G_y(v))\,dW,\qquad v(s)=\xi,
+\end{equation}
+has a unique solution throughout $[s,T]$. Its paths are continuous into
+$E_q$ and belong locally in $(s,T)$ to
+$H^{\theta,q}(X_{1-\theta})$ for all $0\le\theta<1/2$.
+\end{proposition}
+
+\begin{proof}
+For local existence at exponent $q$, choose $\beta'\in(a,1)$ and
+$\rho'=0$. Then $X_{\beta',1}\hookrightarrow E_q$, and local
+Lipschitz continuity on $E_q$ verifies Assumption~4.1 of \cite{Survey}
+with these parameters. Its condition (4.4a) is simply $\beta'\le1$,
+strict here. \Cref{lem:linear} supplies the bullet hypothesis, so
+Theorem~4.7 there gives a maximal local $L^q$ solution $(v,\tau)$.
+This use of the local theorem does not require the cutoff to preserve
+the original polynomial exponents.
+
+Let $\widehat\tau_n\uparrow\tau$ be a localizing sequence. Stop further
+at the level $n$ of $\int_s^t\norm[X_1]{v(r)}^q\,dr$, and at $T$,
+to obtain stopping times $\tau_n\uparrow\tau\wedge T$. The integrals
+are adapted and continuous before $\tau$; on the stopped intervals
+their values are bounded by $n$. The coefficients evaluated along $v$
+are progressive: on these intervals $v$ has a strongly progressive
+$X_1$-valued representative, and the coefficients are continuous on
+$X_1$. Thus
+\[
+ f_n=\ind_{[s,\tau_n]}F_y(v),\qquad
+ g_n=\ind_{[s,\tau_n]}G_y(v)
+\]
+are progressive and have finite $L^q(d\Prob\,dt)$ norms by
+\eqref{eq:cutgrowth}. The values at the interval endpoints do not
+affect either integral.
+
+Solve the linear equation on $[s,T]$ with initial value $\xi$ and
+forcings $f_n,g_n$, and call its solution $V_n$. Stopped linear
+uniqueness gives $V_n=v$ up to $\tau_n$. With
+$Y_n=\norm[L^q(\Omega\times(s,\tau_n);X_1)]{v}$, Minkowski's
+inequality, \eqref{eq:initialestimate}, and \eqref{eq:cutgrowth} give
+\begin{align*}
+ Y_n&\le M_{q,T}\left(\norm[L^q(\Omega;E_q)]{\xi}
+                         +\eta Y_n+K_yT^{1/q}\right),\\
+ Y_n&\le2M_{q,T}\left(\norm[L^q(\Omega;E_q)]{\xi}+K_yT^{1/q}\right).
+\end{align*}
+The estimate takes place in expectation and time together.
+Monotone convergence gives the same bound up to $\tau\wedge T$.
+Both nonlinear forcings consequently have finite $L^q$ norms there.
+
+Kill those forcings at $\tau\wedge T$ and solve the linear equation
+once more on $[s,T]$. Its solution $V$ is continuous into $E_q$ and
+agrees with $v$ before $\tau\wedge T$. On $\{\tau\le T\}$ this gives
+$\lim_{t\uparrow\tau}v(t)=V(\tau)$ in $E_q$. The trace-limit
+criterion of \cite{Survey}, Theorem~5.1(1), p.~48, states
+\[
+ \Prob\{\tau<\infty,\ \lim_{t\uparrow\tau}v(t)
+                           \text{ exists in }E_q\}=0.
+\]
+It applies to the cutoff equation with the local parameters just
+verified. Hence $\tau>T$ almost surely. Applying the linear estimates
+to its forcings gives all the asserted regularity on $[s,T]$ and its
+interior. The radius may depend on $q,T,N$; no estimate uniform over
+infinite horizons is used.
+\end{proof}
+
+\section{Comparison and deterministic covering}
+
+We now connect these equations to the endpoint solution. Only countably
+many auxiliary solutions will be needed.
+
+\begin{lemma}\label{lem:restarts}
+There is a deterministic countable dense set $D\subset(0,\infty)$ such
+that for every $s\in D$ the variable
+$U_s=\ind_{\{s<\sigma\}}u(s)$ has a strongly $\mathcal F_s$-measurable
+$X_1$-valued version. There is also a countable set
+$\mathcal Y\subset X_1$ whose closure in $E$ contains every path
+value $u(t)$, $0\le t<\sigma$, outside one null set.
+\end{lemma}
+
+\begin{proof}
+On each localized interval, the energy solution has a progressive
+$X_1$-valued representative for almost every time. Fubini's theorem
+and the countable localizing sequence show that, for almost every
+deterministic $s>0$, its trace value on $\{s<\sigma\}$ agrees almost
+surely with such an $\mathcal F_s$-measurable value. Extend by $0$
+on the complement. This yields a full Lebesgue measure set of good
+times. Select a countable dense subset $D$ of that set. No assertion
+about domain-valued traces at arbitrary rational times is needed.
+
+For the centers, the countably many strongly measurable $E$-valued
+variables $\ind_{\{r<\sigma\}}u(r)$, with rational $r\ge0$, have
+essential ranges in a deterministic closed separable subspace $E_*$
+of $E$. Outside one null set, continuity in \eqref{eq:energy} brings
+every path value before $\sigma$ into $E_*$. Approximate a countable
+dense subset of $E_*$ by vectors in $X_1$, which is dense in $E$.
+The collection of all approximants is the required $\mathcal Y$.
+The centers need not themselves lie in $E_*$, so separability of the
+whole couple is unnecessary.
+\end{proof}
+
+For $s\in D$, $k\in\N$, and an admissible $q$, set
+\begin{equation}\label{eq:restartdata}
+ \Gamma_{s,k,q}=\{s<\sigma,\ \norm[E_q]{U_s}\le k\},
+ \qquad \xi_{s,k,q}=\ind_{\Gamma_{s,k,q}}U_s.
+\end{equation}
+These events belong to $\mathcal F_s$, since $X_1\hookrightarrow E_q$
+and the variable in \cref{lem:restarts} is strongly measurable.
+The initial data have $E_q$-norm bounded by $k$.
+For each integer $T>s$, integer $N$, and
+$y\in\mathcal Y$ with $\norm[E]{y}\le N$, construct the solution in
+\cref{prop:cutoff} with these data and the radius $d(N,q,T)$.
+There are countably many choices.
+
+\begin{lemma}\label{lem:comparison}
+For each such choice, on $\Gamma_{s,k,q}$ the cutoff solution $v$ and
+$u$ agree before either path exits the open $E$-ball of radius $d$
+about $y$, and before $\sigma\wedge T$, provided
+$\norm[E]{u(s)-y}<d$.
+\end{lemma}
+
+\begin{proof}
+The latter condition is an $\mathcal F_s$-measurable event. Localize
+to its intersection with $\Gamma_{s,k,q}$. The two initial values
+then coincide. The exit times
+\[
+ \zeta_u=\inf\{r\in[s,\sigma):\norm[E]{u(r)-y}\ge d\},\qquad
+ \zeta_v=\inf\{r\in[s,T]:\norm[E]{v(r)-y}\ge d\}
+\]
+are stopping times, with the empty-set values $\sigma$ and $T$,
+respectively. This follows from adapted trace continuity, or by
+forming the exits on the localizing intervals and taking their limit.
+Cap both at $\sigma\wedge T$.
+
+The higher-$q$ solution is an endpoint solution on every finite
+stopped interval on which it has the original coefficients:
+$L^q(X_1)\hookrightarrow L^2(X_1)$, $C(E_q)\hookrightarrow C(E)$,
+and its forcings are in the corresponding $L^2$ spaces.
+Before $\zeta_u\wedge\zeta_v$ the cutoff equals one, so the
+equations coincide. Endpoint local uniqueness and initial-event
+localization give equality there. Formally one may compare both
+restrictions with the endpoint equation started at $\xi_{s,k,q}$;
+uniqueness is on the common stopped interval. Intersecting with
+the respective localizing sequences and then taking their limits
+gives the asserted comparison. Trace continuity extends equality
+to an exit time strictly below $\sigma\wedge T$.
+\end{proof}
+
+\begin{proposition}\label{prop:cover}
+For every $q=q_\ell$ satisfying \eqref{eq:qchoice}, almost surely
+\begin{equation}\label{eq:highq}
+ u\in H^{\theta,q}_\loc((0,\sigma);X_{1-\theta})
+ \qquad(0\le\theta<1/2).
+\end{equation}
+Initially these assertions can be imposed simultaneously for every such
+$q$ and every member of any fixed countable set of $\theta$'s.
+\end{proposition}
+
+\begin{proof}
+Remove the null sets for \cref{lem:restarts}, all the countably many
+cutoff solutions and comparisons, and the stated countable regularity
+parameters. Fix a sample point in the remaining event, a time
+$t\in(0,\sigma)$, and one of the exponents $q$. Choose integers
+$T>t$ and $N>\norm[E]{u(t)}+2$. Since the radius $d(N,q,T)$ is
+independent of the domain norm of the center, density supplies
+$y\in\mathcal Y$ with
+\[
+ \norm[E]{y}\le N,\qquad \norm[E]{u(t)-y}<d/4.
+\]
+Continuity supplies a neighborhood of $t$ inside $(0,\sigma\wedge T)$
+on which $\norm[E]{u(\cdot)-y}<d/2$. Choose $s\in D$ in this
+neighborhood with $s<t$ and choose $b>t$ in the same neighborhood,
+so that the bound holds on $[s,b]$. Since $U_s\in X_1\hookrightarrow
+E_q$, choose $k$ such that the sample point belongs to
+$\Gamma_{s,k,q}$.
+
+The corresponding cutoff solution agrees with $u$ up to the common
+exit by \cref{lem:comparison}. It cannot exit before or at $b$:
+otherwise equality and continuity would put its distance from $y$
+at $d$, while the original path has distance less than $d/2$.
+The original path also does not exit on $[s,b]$. Hence $u=v$ on
+$[s,b]$, an interval containing $t$ in its interior.
+
+Every positive time before $\sigma$ therefore has such a neighborhood.
+For a compact subinterval of $(0,\sigma)$ take a finite subcover and
+a smooth partition of unity subordinate to it. Multiplication by
+smooth functions and restriction are bounded in the Bessel potential
+spaces in question. Pasting the finitely many restrictions proves
+\eqref{eq:highq} for the countable parameters. No uniform bound on
+$K_y$ over the centers is needed.
+\end{proof}
+
+\section{Proof of the regularization theorem}
+
+\begin{proof}[Proof of \cref{thm:main}]
+Discard finitely many $q_\ell$ so that \eqref{eq:qchoice} holds.
+Choose a countable sequence $\theta_n\uparrow1/2$, with
+$0<\theta_n<1/2$, and also include $\theta=0$.
+\Cref{prop:cover} gives all these assertions on a single event of
+probability one.
+
+We describe explicitly why all intermediate $\theta$ have the same
+spatial scale. On an interval with compact closure in $(0,\sigma)$,
+use a smooth cutoff equal to one on a smaller interval, and extend
+by zero to $\R$. The resulting function belongs to
+$L^q(\R;X_1)$ and $H^{\theta_n,q}(\R;X_{1-\theta_n})$.
+For $0<\theta<\theta_n$, put $\lambda=\theta/\theta_n$. Mixed
+complex interpolation for this Hilbert scale gives
+\begin{equation}\label{eq:mixed}
+ [L^q(\R;X_1),H^{\theta_n,q}(\R;X_{1-\theta_n})]_\lambda
+ =H^{\theta,q}(\R;X_{1-\theta}).
+\end{equation}
+Indeed $X_\delta=D(A_*^\delta)$ with equivalent norms, and the
+time Bessel multiplier $(1-\partial_t^2)^{1/2}$ commutes with $A_*$.
+Their imaginary powers are bounded on $L^q(\R;X_0)$, so interpolation
+of their product domains gives \eqref{eq:mixed}; the exponents of
+$A_*$ interpolate from $1$ to $1-\theta_n$, giving exactly
+$1-\lambda\theta_n=1-\theta$. Thus no spatial shift is introduced.
+Restriction proves \eqref{eq:highq} simultaneously for every
+$0\le\theta<1/2$.
+
+For completeness, on bounded intervals lowering the integrability
+exponent gives $H^{\theta,q}(Y)\hookrightarrow H^{\theta,r}(Y)$
+when $q\ge r>1$. This follows by interpolating the inclusions for
+$L^q\hookrightarrow L^r$ and $W^{1,q}\hookrightarrow W^{1,r}$
+with the same parameter $\theta$, or by restriction and extension.
+For every finite $r\ge2$ there is a $q_\ell\ge r$, proving
+\eqref{eq:conclusion}, including $L^r_\loc(X_1)$ at $\theta=0$.
+
+Finally fix $0<\varepsilon<\theta<1/2$. Choose an available $q$
+with $1/q<\varepsilon$. The one-dimensional Sobolev embedding on
+each compact interval $I\subset(0,\sigma)$ yields
+\[
+ H^{\theta,q}(I;X_{1-\theta})
+ \hookrightarrow C^{\theta-1/q}(I;X_{1-\theta})
+ \hookrightarrow C^{\theta-\varepsilon}(I;X_{1-\theta}).
+\]
+The continuous representative agrees with the endpoint representative
+by continuity into $X_0$ and equality almost everywhere in time.
+All subsequent deductions are deterministic on the event already
+chosen. This proves the simultaneous assertion \eqref{eq:holder}.
+\end{proof}
+
+\begin{corollary}\label{cor:variational}
+Let $V\hookrightarrow H\hookrightarrow V^*$ be a Gelfand triple of
+Hilbert spaces satisfying Assumption~6.1 of \cite{Survey}, pp.~64--65.
+If the linear pair has unweighted stochastic maximal regularity for
+an unbounded sequence of finite $q>2$ on $(X_0,X_1)=(V^*,V)$, then
+its maximal critical energy solution satisfies
+\eqref{eq:conclusion}--\eqref{eq:holder} on this couple.
+\end{corollary}
+
+\begin{proof}
+Here $E=H$, $\gamma(U,E)=\mathcal L_2(U,H)$, and the nonlinear
+assumptions are \cref{hyp:nonlinear}. The linear coercivity condition is
+\[
+ \langle v,Av\rangle-\tfrac12\norm[\mathcal L_2(U,H)]{Bv}^2
+ \ge\vartheta\norm[V]{v}^2-M\norm[H]{v}^2\qquad(v\in V),
+\]
+where $\vartheta>0$, $M\ge0$, and the pairing extends the inner
+product of $H$. It supplies the endpoint bullet estimate by
+\cite{CV}, Lemma~4.1, and the sectorial realization described after
+\cite{Survey}, Assumption~6.1. The assumed higher-exponent estimates
+complete \cref{hyp:linear}, so \cref{thm:main} applies.
+\end{proof}
+
+\section{Remarks}
+
+The extra condition (5.21) of \cite{Survey} asks for growth bounds on
+balls of the larger real interpolation space $X_{1-1/p,\infty}$.
+\Cref{lem:small} uses only the local difference estimate on $E$-balls;
+the continuation argument uses the resulting small relative growth of
+the cutoff coefficients. It therefore needs no such larger-ball bound.
+The conclusion concerns compact subintervals of $(0,\sigma)$ only.
+The moment estimate for an auxiliary cutoff equation does not imply
+a moment estimate for $u$, whose comparison intervals and centers
+depend on its path.
+
+The temporal-threshold result of Agresti--Veraar \cite{Threshold},
+Theorems~1 and~3, pp.~372 and~374, does not contradict
+\cref{thm:main}: it rules out general positive temporal smoothness
+in the full energy domain $V$, whereas here $X_{1-\theta}$ is
+rougher than $V$ when $\theta>0$ in the variational couple.
+
+Removing the higher-exponent linear hypothesis remains a separate
+question. Endpoint coercivity controls the energy norm; the proof
+above uses higher-$q$ operator estimates to continue each cutoff
+equation. In particular those estimates have not been deduced from
+coercivity. For $B=0$ and an analytic generator on a Hilbert space,
+\cite{Survey}, Theorem~3.13, supplies all the required linear exponents.
+
+For non-Hilbert $X_0$, both the identification
+$X_{1/2,2}=X_{1/2}$ and the reference self-adjoint construction require
+replacement. The present argument makes no assertion in that setting.
+The temporal endpoint $\theta=1/2$ also remains outside the theorem:
+the linear fractional-time estimates used here are for
+$\theta<1/2$, and increasing $q$ does not change that restriction.
+
+\section*{Acknowledgements and funding}
+The research presented in this paper was supported by the European Research
+Council (ERC) under the European Union's Horizon Europe research and
+innovation programme (grant agreement No.~101041711), by the Simons
+Foundation as part of the Collaboration on the Mathematical and Scientific
+Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by
+the Israel Science Foundation (grant number 2258/19), and by the Israel
+Science Foundation (ISF Grant 4101/25). Computational resources were
+provided in part by Google Cloud through its education credits program
+(credit 530550103).
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the details behind the Brain and Math Brain, see the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework repository~\cite{BrainFramework}.
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital. These entities are included
+in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+OpenAI GPT-6.1 (Codex) wrote the proofs and an independent GPT-6.1 run
+checked them. Claude Opus~5.5 (Anthropic) set the problem, compared the
+sources and prepared the text. The author is responsible for the content.
+
+\begin{samepage}
+\section*{Data availability}
+No data were generated or analysed for this paper. Related material is at
+\url{https://github.com/yspennstate/critical-hilbert-time-regularization}.
+
+The paper is part of the Math Brain project, whose public repository is \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
+\end{samepage}
+
+\begin{thebibliography}{99}
+\bibitem{Survey} A.~Agresti and M.~Veraar,
+\emph{Nonlinear SPDEs and Maximal Regularity: An Extended Survey},
+Nonlinear Differ. Equ. Appl. NoDEA 32 (2025), no.~6, article~123,
+150~pp., doi:10.1007/s00030-025-01090-2, arXiv:2501.18561v5.
+
+\bibitem{AVI} A.~Agresti and M.~Veraar,
+\emph{Nonlinear parabolic stochastic evolution equations in critical spaces
+Part I. Stochastic maximal regularity and local existence},
+Nonlinearity 35 (2022), no.~8, 4100--4210,
+doi:10.1088/1361-6544/abd613, arXiv:2001.00512v5.
+
+\bibitem{AVII} A.~Agresti and M.~Veraar,
+\emph{Nonlinear parabolic stochastic evolution equations in critical spaces
+part II. Blow-up criteria and instantaneous regularization},
+J. Evol. Equ. 22 (2022), no.~2, article~56, 96~pp.,
+doi:10.1007/s00028-022-00786-7, arXiv:2012.04448v4.
+
+\bibitem{CV} A.~Agresti and M.~Veraar,
+\emph{The critical variational setting for stochastic evolution equations},
+Probab. Theory Related Fields 188 (2024), 957--1015,
+doi:10.1007/s00440-023-01249-x, arXiv:2206.00230.
+
+\bibitem{Threshold} A.~Agresti and M.~C.~Veraar,
+\emph{A note on a threshold for temporal regularity of stochastic PDEs},
+C. R. Math. 364 (2026), 371--379,
+doi:10.5802/crmath.833, arXiv:2509.07803.
+
+\bibitem{KR} N.~V.~Krylov and B.~L.~Rozovskii,
+\emph{Stochastic evolution equations},
+J. Soviet Math. 16 (1981), 1233--1277,
+doi:10.1007/BF01084893; Russian original in
+Itogi Nauki i Tekhniki, Ser. Sovrem. Probl. Mat. 14 (1979), 71--146.
+
+\bibitem{LR} W.~Liu and M.~R\"ockner,
+\emph{SPDE in Hilbert space with locally monotone coefficients},
+J. Funct. Anal. 259 (2010), 2902--2922,
+doi:10.1016/j.jfa.2010.05.012, arXiv:1005.0632.
+
+\bibitem{PV} P.~Portal and M.~Veraar,
+\emph{Stochastic maximal regularity for rough time-dependent problems},
+Stoch. Partial Differ. Equ. Anal. Comput. 7 (2019), 541--597,
+doi:10.1007/s40072-019-00134-w, arXiv:1810.01183.
+
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public}.
+
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public}.
+
+\end{thebibliography}
+\end{document}
